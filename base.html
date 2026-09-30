@@ -1,0 +1,31 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}BlurVision AI{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">◉</div><div><b>BlurVision</b><small>AI DETECTION</small></div></div>
+  <div class="nav-title">WORKSPACE</div>
+  <a class="{% if active=='dashboard' %}active{% endif %}" href="/">⌂ <span>Dashboard</span></a>
+  <a class="{% if active=='analyze' %}active{% endif %}" href="/analyze">⌁ <span>Analyze Image</span></a>
+  <a class="{% if active=='analytics' %}active{% endif %}" href="/analytics">▥ <span>Analytics</span></a>
+  <a class="{% if active=='history' %}active{% endif %}" href="/history">◷ <span>Scan History</span></a>
+  <div class="nav-title">SYSTEM</div>
+  <a class="{% if active=='about' %}active{% endif %}" href="/about">ⓘ <span>About Project</span></a>
+  <a class="{% if active=='settings' %}active{% endif %}" href="/settings">⚙ <span>Settings</span></a>
+  <div class="side-footer"><span class="dot"></span> Model System Online<br><small>Deep Learning Engine</small></div>
+</aside>
+<main class="main">
+<header class="topbar"><div><span class="eyebrow">AI IMAGE INTELLIGENCE</span><h2>{% block heading %}Dashboard{% endblock %}</h2></div>
+<div class="status">● SYSTEM READY</div></header>
+<section class="content">{% block content %}{% endblock %}</section>
+</main>
+</div>
+<script src="{{ url_for('static',filename='js/app.js') }}"></script>
+</body></html>

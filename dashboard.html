@@ -1,0 +1,19 @@
+
+{% extends "base.html" %}{% block title %}Dashboard | BlurVision AI{% endblock %}
+{% block heading %}Detection Dashboard{% endblock %}
+{% block content %}
+<div class="hero"><div><span class="pill">DEEP LEARNING • CNN</span><h1>Blur Detection<br><span>Intelligence Center</span></h1><p>Analyze image quality and classify images as Clear or Blurred using an AI-based detection pipeline.</p><a class="btn" href="/analyze">+ Analyze New Image</a></div><div class="hero-art">◎<div>IMAGE<br>QUALITY<br>AI</div></div></div>
+<div class="cards">
+<div class="card"><span>Total Scans</span><strong>{{ total }}</strong><small>All analyzed images</small></div>
+<div class="card"><span>Clear Images</span><strong>{{ clear }}</strong><small class="good">● Detected clear</small></div>
+<div class="card"><span>Blurred Images</span><strong>{{ blurred }}</strong><small class="warn">● Requires attention</small></div>
+<div class="card"><span>Avg Confidence</span><strong>{{ avg }}%</strong><small>Model confidence</small></div>
+</div>
+<div class="grid2">
+<div class="panel"><div class="panel-head"><div><h3>Detection Distribution</h3><p>Clear vs blurred scan results</p></div></div><canvas id="distChart"></canvas></div>
+<div class="panel quick"><h3>Quick Actions</h3><a href="/analyze">🔍 Upload & Analyze <span>→</span></a><a href="/analytics">📊 View Analytics <span>→</span></a><a href="/history">◷ Open Scan History <span>→</span></a><div class="tip">💡 <b>Project objective</b><br>Detect whether an input image is clear or blurred using a deep learning model.</div></div>
+</div>
+<script>
+new Chart(document.getElementById('distChart'),{type:'doughnut',data:{labels:['Clear','Blurred'],datasets:[{data:[{{clear}},{{blurred}}]}]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
+</script>
+{% endblock %}

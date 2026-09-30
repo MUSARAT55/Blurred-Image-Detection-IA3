@@ -1,0 +1,12 @@
+
+{% extends "base.html" %}{% block title %}Analytics | BlurVision AI{% endblock %}
+{% block heading %}Analytics & Insights{% endblock %}
+{% block content %}
+<div class="section-intro"><span class="pill">MODEL ANALYTICS</span><h1>Detection performance overview</h1><p>Visual summaries generated from your stored scan history.</p></div>
+<div class="cards"><div class="card"><span>Clear</span><strong>{{clear}}</strong></div><div class="card"><span>Blurred</span><strong>{{blurred}}</strong></div><div class="card"><span>Average Confidence</span><strong>{{avg}}%</strong></div></div>
+<div class="grid2"><div class="panel"><h3>Classification Comparison</h3><canvas id="barChart"></canvas></div><div class="panel"><h3>Scans Over Time</h3><canvas id="lineChart"></canvas></div></div>
+<script>
+new Chart(document.getElementById('barChart'),{type:'bar',data:{labels:['Clear','Blurred'],datasets:[{label:'Images',data:[{{clear}},{{blurred}}],borderRadius:8}]},options:{responsive:true,scales:{y:{beginAtZero:true}}}});
+new Chart(document.getElementById('lineChart'),{type:'line',data:{labels:{{labels|tojson}},datasets:[{label:'Scans',data:{{values|tojson}},tension:.35,fill:true}]},options:{responsive:true,scales:{y:{beginAtZero:true}}}});
+</script>
+{% endblock %}

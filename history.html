@@ -1,0 +1,9 @@
+
+{% extends "base.html" %}{% block title %}History | BlurVision AI{% endblock %}
+{% block heading %}Scan History{% endblock %}
+{% block content %}
+<div class="section-intro row-between"><div><span class="pill">SCAN LOG</span><h1>Analysis history</h1><p>Every analyzed image is stored locally for project demonstration.</p></div><form method="POST" action="/clear-history"><button class="danger" onclick="return confirm('Clear all history?')">Clear History</button></form></div>
+<div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Image</th><th>Prediction</th><th>Confidence</th><th>Blur Score</th><th>Resolution</th><th>Processing</th><th>Date</th></tr></thead><tbody>
+{% for r in rows %}<tr><td>🖼 {{r.filename[-28:]}}</td><td><span class="tag {{'tag-blur' if r.prediction=='Blurred' else 'tag-clear'}}">{{r.prediction}}</span></td><td>{{"%.2f"|format(r.confidence)}}%</td><td>{{"%.2f"|format(r.blur_score)}}</td><td>{{r.width}}×{{r.height}}</td><td>{{"%.1f"|format(r.processing_ms)}} ms</td><td>{{r.created_at}}</td></tr>{% else %}<tr><td colspan="7" class="no-data">No scans yet. Go to Analyze Image to start.</td></tr>{% endfor %}
+</tbody></table></div></div>
+{% endblock %}

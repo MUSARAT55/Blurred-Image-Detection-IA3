@@ -1,0 +1,19 @@
+
+{% extends "base.html" %}{% block title %}Analyze | BlurVision AI{% endblock %}
+{% block heading %}Analyze Image{% endblock %}
+{% block content %}
+<div class="section-intro"><span class="pill">LIVE ANALYSIS</span><h1>Upload an image for detection</h1><p>The system preprocesses the image and predicts Clear or Blurred.</p></div>
+<div class="analyze-grid">
+<div class="panel upload-panel">
+<form method="POST" enctype="multipart/form-data">
+<label class="dropzone" id="dropzone"><div class="upload-icon">↑</div><h3>Drop image here</h3><p>or click to browse</p><small>JPG • JPEG • PNG • BMP • WEBP</small><input type="file" name="image" id="imageInput" accept="image/*" required></label>
+<div id="preview"></div><button class="btn full" type="submit">Run AI Detection →</button>
+</form>
+{% if error %}<div class="error">{{error}}</div>{% endif %}
+</div>
+<div>
+{% if result %}
+<div class="panel result-panel"><img class="result-img" src="{{url_for('static',filename='uploads/'+result.filename)}}"><div class="result-label {{'blurred' if result.prediction=='Blurred' else 'clear'}}">{{result.prediction|upper}} IMAGE</div><div class="confidence"><div><span>Confidence</span><b>{{result.confidence}}%</b></div><div class="bar"><i style="width:{{result.confidence}}%"></i></div></div><div class="metrics"><div><span>Blur Score</span><b>{{result.blur_score}}</b></div><div><span>Resolution</span><b>{{result.width}} × {{result.height}}</b></div><div><span>File Size</span><b>{{result.file_size}} KB</b></div><div><span>Processing</span><b>{{result.processing_ms}} ms</b></div></div></div>
+{% else %}<div class="panel empty-result"><div class="scan-ring">◉</div><h2>Awaiting Image</h2><p>Upload an image to generate a detection result.</p></div>{% endif %}
+</div></div>
+{% endblock %}
